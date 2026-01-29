@@ -7,10 +7,8 @@ from sklearn.decomposition import PCA
 raw_macro = pd.read_csv("./dataIN/GlobalIndicatorsPerCapita_2021.csv")
 raw_cont = pd.read_csv("./dataIN/CountryContinents.csv")
 
-# variabile numerice
 labels = raw_macro.columns.values[2:].tolist()
 
-# merge + agregare
 merged = raw_macro.merge(raw_cont, left_index=True, right_index=True)
 merged = merged.groupby("CountryId").sum()
 

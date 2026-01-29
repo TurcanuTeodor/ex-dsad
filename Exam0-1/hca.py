@@ -5,7 +5,6 @@ from scipy.cluster.hierarchy import linkage, dendrogram
 from sklearn.preprocessing import StandardScaler
 from matplotlib import pyplot as plt
 
-#read
 df_nat= pd.read_csv("NatLocMovement.csv", index_col=0)
 df_pop= pd.read_csv("PopulationLoc.csv", index_col=0)
 
@@ -18,17 +17,16 @@ df_pop= df_pop.apply(
     lambda col:col.fillna(col.mean()) if col.dtype!='object' else col
 )
 
-#take labels for merging
+
 labels= list(df_nat.columns.values[1:])
 
-#merge
 merged= df_nat.merge(
     df_pop,
     left_index=True,
     right_index=True
 )[['City','CountyCode', 'Population']+labels]
 
-#1 - calc Rate Nat Increase
+#1 
 county=(
     merged
     .groupby('CountyCode', as_index=False)
